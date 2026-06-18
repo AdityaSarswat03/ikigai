@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add MCP Server — Finish</title>
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="wizard-container">
+      <!-- Wizard Header -->
+      <header class="wizard-header">
+        <div class="header-title-container">
+          <div class="server-icon-wrapper">
+            <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="8" rx="2" />
+              <rect x="2" y="14" width="20" height="8" rx="2" />
+              <line x1="6" y1="6" x2="6.01" y2="6" stroke-linecap="round" />
+              <line x1="6" y1="18" x2="6.01" y2="18" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div>
+            <h1>Add MCP Server</h1>
+            <p class="subtitle">Step 4 of 4 &bull; Finish Wizard</p>
+          </div>
+        </div>
+        <button class="close-btn" aria-label="Close wizard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </header>
+
+      <!-- Wizard Stepper (Styled premium like the reference agent creation page) -->
+      <nav class="stepper-nav">
+        <div class="stepper-progress-track">
+          <div class="stepper-progress-fill" style="width: 100%;"></div>
+        </div>
+        <ol class="stepper-list">
+          <li class="step-item completed">
+            <span class="step-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </span>
+            <span class="step-label">Details &amp; Preview</span>
+          </li>
+          <li class="step-item completed">
+            <span class="step-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </span>
+            <span class="step-label">Enrichment &amp; Validate</span>
+          </li>
+          <li class="step-item completed">
+            <span class="step-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </span>
+            <span class="step-label">Authentication</span>
+          </li>
+          <li class="step-item active">
+            <span class="step-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="flag-icon">
+                <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                <line x1="4" y1="22" x2="4" y2="15"></line>
+              </svg>
+            </span>
+            <span class="step-label">Finish</span>
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Main Content Area -->
+      <main class="wizard-content">
+        
+        <!-- Summary Section (Transformed from lists to premium info cards) -->
+        <section class="content-section" aria-labelledby="summary-heading">
+          <div class="section-header">
+            <h2 id="summary-heading">Summary of your journey</h2>
+            <p class="section-desc">Review your configured server properties and validation output.</p>
+          </div>
+          <div class="summary-cards-grid">
+            <div class="summary-card">
+              <div class="summary-card-icon details">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+              </div>
+              <div class="summary-card-content">
+                <h3>Details</h3>
+                <p class="primary-val">a &bull; a</p>
+                <p class="secondary-val">Input Type: File</p>
+              </div>
+            </div>
+
+            <div class="summary-card">
+              <div class="summary-card-icon preview">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                  <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+              </div>
+              <div class="summary-card-content">
+                <h3>Preview</h3>
+                <p class="primary-val">3 Tools Loaded</p>
+                <p class="secondary-val">Configured from spec</p>
+              </div>
+            </div>
+
+            <div class="summary-card">
+              <div class="summary-card-icon enrichment">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+              </div>
+              <div class="summary-card-content">
+                <h3>Enrichment</h3>
+                <p class="primary-val status-badge success">Complete</p>
+                <p class="secondary-val">13 pipeline steps run</p>
+              </div>
+            </div>
+
+            <div class="summary-card">
+              <div class="summary-card-icon validation">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 11l3 3L22 4"></path>
+                  <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                </svg>
+              </div>
+              <div class="summary-card-content">
+                <h3>Validation</h3>
+                <p class="primary-val status-badge success">Complete</p>
+                <p class="secondary-val">3 tools with LLM descriptions</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Pipeline Section (Visualized flow nodes) -->
+        <section class="content-section" aria-labelledby="pipeline-heading">
+          <div class="section-header-inline">
+            <div>
+              <h2 id="pipeline-heading">Pipeline Execution</h2>
+              <p class="section-desc">Observe the sequence of operations configured to format and compile your server.</p>
+            </div>
+            <div class="pipeline-controls">
+              <button class="btn-secondary btn-small" id="btn-replay">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="play-icon">
+                  <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+                </svg>
+                Replay Run
+              </button>
+            </div>
+          </div>
+
+          <!-- Connecting node layout -->
+          <div class="pipeline-flow-wrapper">
+            <div class="pipeline-flow" id="pipeline-flow-container">
+              <!-- Dynamically populated via JS for best styling/animations -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Logs Terminal Section (Dark CLI theme with filters) -->
+        <section class="content-section" aria-labelledby="logs-heading">
+          <div class="section-header-inline">
+            <div>
+              <h2 id="logs-heading">Activity Log</h2>
+              <p class="section-desc">Terminal log output showing raw build steps and execution stack details.</p>
+            </div>
+          </div>
+
+          <div class="terminal-widget">
+            <div class="terminal-header">
+              <div class="terminal-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <span class="terminal-title">mcp-server-enricher.sh</span>
+              <div class="terminal-actions">
+                <div class="filter-group">
+                  <button class="filter-chip active" data-filter="all">All</button>
+                  <button class="filter-chip" data-filter="info">Info</button>
+                  <button class="filter-chip" data-filter="step">Steps</button>
+                  <button class="filter-chip" data-filter="done">Completed</button>
+                </div>
+                <button class="copy-btn" id="btn-copy-logs" title="Copy logs to clipboard">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="copy-icon">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                  <span>Copy Logs</span>
+                </button>
+              </div>
+            </div>
+            <div class="terminal-body" id="logs-terminal">
+              <!-- Logs dynamically generated here -->
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- Wizard Navigation Footer -->
+      <footer class="wizard-footer">
+        <button class="btn-secondary btn-large">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform: rotate(180deg)">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+          Back
+        </button>
+        <button class="btn-primary btn-large" id="btn-finish">
+          Finish Server Connection
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 16px; height: 16px;">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </button>
+      </footer>
+    </div>
+
+    <!-- Script Entry -->
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
