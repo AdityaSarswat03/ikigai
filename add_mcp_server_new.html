@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add MCP Server — Details & Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --bg-primary: #f8fafc;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --primary-light: #e0e7ff;
+      --border-color: #e2e8f0;
+      --radius-sm: 6px;
+      --radius-md: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    .wizard-container {
+      width: 100%;
+      max-width: 1200px;
+      background-color: var(--bg-card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .wizard-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .header-left {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .server-icon-wrapper {
+      background-color: #e0e7ff;
+      color: #4f46e5;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .header-text-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .header-title-text {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .header-subtitle {
+      font-size: 0.85rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .close-btn:hover {
+      color: #64748b;
+    }
+
+    /* Stepper Section */
+    .stepper-section {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .stepper-track-container {
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .stepper-line {
+      position: absolute;
+      top: 20px;
+      left: 10%;
+      right: 10%;
+      height: 3px;
+      background-color: #cbd5e1;
+      z-index: 1;
+      border-radius: 2px;
+    }
+
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      width: 160px;
+    }
+
+    .step-icon-wrapper {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+    }
+
+    .step.completed .step-icon-wrapper {
+      background: #10b981;
+      border-color: #10b981;
+      color: white;
+    }
+
+    .step.completed .step-label {
+      color: #059669;
+    }
+
+    .step.active .step-icon-wrapper {
+      background: #5b21b6; /* darker purple/blue base */
+      background: linear-gradient(135deg, #6366f1, #4338ca);
+      border: none;
+      color: white;
+      box-shadow: 0 0 0 5px #e0e7ff;
+    }
+
+    .step-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #94a3b8;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .step.active .step-label {
+      color: #4f46e5;
+    }
+
+    /* Form Content */
+    .form-content {
+      padding: 1.5rem 2rem;
+    }
+
+    .input-wrapper {
+      position: relative;
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+
+    .input-box {
+      width: 100%;
+      padding: 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    .fake-placeholder {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      color: #94a3b8;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      font-size: 0.95rem;
+    }
+
+    .required-star {
+      color: #ef4444;
+    }
+
+    .input-box:focus + .fake-placeholder,
+    .input-box:not(:placeholder-shown) + .fake-placeholder {
+      opacity: 0;
+    }
+
+    textarea.input-box {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    /* Tabs */
+    .tabs-container {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      margin-bottom: 2rem;
+    }
+
+    .tabs-header {
+      display: flex;
+      background: #fafbfc;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .tab {
+      flex: 1;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .tab.active {
+      color: var(--primary);
+      background: white;
+    }
+
+    .tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--primary);
+    }
+
+    .tab-content {
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .tab-pane {
+      display: none;
+      width: 100%;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    .tab-input {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+      font-family: var(--font-sans);
+    }
+
+    .tab-input::placeholder { color: #94a3b8; }
+
+    .btn-load-spec {
+      width: 100%;
+      padding: 0.875rem;
+      border: 1px solid var(--primary);
+      border-radius: var(--radius-sm);
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-load-spec:disabled {
+      border: 1px solid var(--border-color);
+      background: #fafbfc;
+      color: var(--text-light);
+      cursor: not-allowed;
+    }
+
+    .btn-load-spec:not(:disabled):hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .tab-textarea {
+      width: 100%;
+      height: 200px;
+      padding: 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      color: var(--text-main);
+      resize: vertical;
+      font-family: var(--font-mono, monospace);
+    }
+
+    .tab-textarea::placeholder { color: #94a3b8; }
+
+    /* Upload Zone */
+    .upload-zone {
+      width: 100%;
+      margin: 1rem auto;
+      border: 2px dashed var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: white;
+      transition: all 0.2s ease;
+    }
+
+    .upload-icon {
+      color: #334155;
+      margin-bottom: 1rem;
+    }
+
+    .upload-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 0.5rem;
+    }
+
+    .upload-subtitle {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .upload-btn-fake {
+      border: 1px solid var(--primary);
+      background: var(--primary-light);
+      padding: 0.75rem 2rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      color: var(--primary);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .upload-btn-fake:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Footer */
+    .wizard-footer {
+      padding: 1rem 2rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+    }
+
+    .btn-cancel {
+      color: var(--primary);
+      background: none;
+      border: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-next {
+      background: #6366f1;
+      color: white;
+      border: none;
+      padding: 0.85rem 2rem;
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+      transition: all 0.2s ease;
+    }
+
+    .btn-next:disabled {
+      background: #e2e8f0;
+      color: #94a3b8;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    .btn-next:not(:disabled):hover {
+      background: #4f46e5;
+      box-shadow: 0 6px 16px rgba(99, 102, 241, 0.5);
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body>
+  <div class="wizard-container">
+    
+    <!-- Header -->
+    <header class="wizard-header">
+      <div class="header-left">
+        <div class="server-icon-wrapper">
+          <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <!-- Top Rectangle -->
+            <rect x="2" y="2" width="20" height="8" rx="2" />
+            <!-- Bottom Rectangle -->
+            <rect x="2" y="14" width="20" height="8" rx="2" />
+            <!-- Top Dot/Light -->
+            <line x1="6" y1="6" x2="6.01" y2="6" stroke-linecap="round" />
+            <!-- Bottom Dot/Light -->
+            <line x1="6" y1="18" x2="6.01" y2="18" stroke-linecap="round" />
+          </svg>
+        </div>
+        <div class="header-text-container">
+          <div class="header-title-text">Add MCP Server</div>
+          <div class="header-subtitle">Step 1 of 4 &bull; Details & Preview</div>
+        </div>
+      </div>
+      <button class="close-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Stepper Section -->
+    <div class="stepper-section">
+      <div class="stepper-track-container">
+        <div class="stepper-line"></div>
+        <div class="steps">
+          
+          <div class="step active">
+            <div class="step-icon-wrapper">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
+            <div class="step-label">Details & Preview</div>
+          </div>
+          
+          <div class="step">
+            <div class="step-icon-wrapper">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            </div>
+            <div class="step-label">Enrichment & Validate</div>
+          </div>
+          
+          <div class="step">
+            <div class="step-icon-wrapper">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+              </svg>
+            </div>
+            <div class="step-label">Authentication</div>
+          </div>
+          
+          <div class="step">
+            <div class="step-icon-wrapper">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                <line x1="4" y1="22" x2="4" y2="15"></line>
+              </svg>
+            </div>
+            <div class="step-label">Finish</div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Section -->
+    <div class="form-content">
+      <div class="input-wrapper">
+        <input type="text" id="name-input" class="input-box" placeholder=" " />
+        <span class="fake-placeholder">Name <span class="required-star">*</span></span>
+      </div>
+      <div class="input-wrapper">
+        <textarea id="desc-input" class="input-box" placeholder=" "></textarea>
+        <span class="fake-placeholder">Description <span class="required-star">*</span></span>
+      </div>
+      
+      <!-- Tabs Area -->
+      <div class="tabs-container">
+        <div class="tabs-header">
+          <div class="tab" onclick="switchTab('url')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg>
+            URL
+          </div>
+          <div class="tab active" onclick="switchTab('upload')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            Upload File
+          </div>
+          <div class="tab" onclick="switchTab('text')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="4 7 4 4 20 4 20 7"></polyline>
+              <line x1="9" y1="20" x2="15" y2="20"></line>
+              <line x1="12" y1="4" x2="12" y2="20"></line>
+            </svg>
+            Enter Text
+          </div>
+        </div>
+        
+        <div class="tab-content">
+          <!-- URL Panel -->
+          <div class="tab-pane" id="pane-url">
+            <input type="text" id="url-input" class="tab-input" placeholder="OpenAPI URL or base URL" />
+            <button id="btn-load-spec" class="btn-load-spec" disabled>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+              </svg>
+              LOAD SPEC
+            </button>
+          </div>
+          
+          <!-- Upload Panel -->
+          <div class="tab-pane active" id="pane-upload">
+            <div class="upload-zone" id="upload-zone">
+              <svg class="upload-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              <div class="upload-title">Upload OpenAPI File</div>
+              <div class="upload-subtitle">Upload OpenAPI/Swagger file to parse tools</div>
+              <button class="upload-btn-fake" onclick="document.getElementById('file-upload').click()">Drag & drop or browse</button>
+              <input type="file" id="file-upload" style="display: none;" accept=".json,.yaml,.yml" onchange="handleFileSelect(event)" />
+              <div id="file-name-display" style="margin-top: 1rem; font-size: 0.875rem; color: var(--primary); font-weight: 600; display: none;"></div>
+            </div>
+            <div id="upload-error-msg" style="color: #ef4444; font-size: 0.75rem; text-align: left; margin-top: 0.5rem; display: block;">Please upload a file</div>
+          </div>
+          
+          <!-- Text Panel -->
+          <div class="tab-pane" id="pane-text">
+            <textarea id="text-input" class="tab-textarea" placeholder="Paste OpenAPI/Swagger as JSON or YAML"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="wizard-footer">
+      <button class="btn-cancel">CANCEL</button>
+      <button id="btn-next" class="btn-next" disabled>PERFORM ENRICHMENT</button>
+    </div>
+
+  </div>
+
+  <script>
+    function switchTab(tabId) {
+      // Update tabs
+      const tabs = document.querySelectorAll('.tab');
+      tabs.forEach((tab, index) => {
+        if ((tabId === 'url' && index === 0) || 
+            (tabId === 'upload' && index === 1) || 
+            (tabId === 'text' && index === 2)) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+        }
+      });
+      
+      // Update panes
+      const panes = document.querySelectorAll('.tab-pane');
+      panes.forEach(pane => {
+        pane.classList.remove('active');
+      });
+      document.getElementById('pane-' + tabId).classList.add('active');
+    }
+
+    // Handle LOAD SPEC button disabled state
+    const urlInput = document.getElementById('url-input');
+    const btnLoadSpec = document.getElementById('btn-load-spec');
+
+    if(urlInput && btnLoadSpec) {
+      urlInput.addEventListener('input', function() {
+        if (this.value.trim().length > 0) {
+          btnLoadSpec.disabled = false;
+        } else {
+          btnLoadSpec.disabled = true;
+        }
+      });
+    }
+
+    // Handle File Upload and Drag & Drop
+    const uploadZone = document.getElementById('upload-zone');
+    const fileInput = document.getElementById('file-upload');
+    
+    function handleFileSelect(event) {
+      const file = event.target.files[0];
+      const display = document.getElementById('file-name-display');
+      const errorMsg = document.getElementById('upload-error-msg');
+      if (file) {
+        display.textContent = 'Selected file: ' + file.name;
+        display.style.display = 'block';
+        uploadZone.style.borderColor = 'var(--primary)';
+        uploadZone.style.backgroundColor = 'var(--primary-light)';
+        if(errorMsg) errorMsg.style.display = 'none';
+      } else {
+        display.style.display = 'none';
+        uploadZone.style.borderColor = 'var(--border-color)';
+        uploadZone.style.backgroundColor = 'white';
+        if(errorMsg) errorMsg.style.display = 'block';
+      }
+      checkFormValidity();
+    }
+
+    if(uploadZone && fileInput) {
+      uploadZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadZone.style.borderColor = 'var(--primary)';
+        uploadZone.style.backgroundColor = 'var(--primary-light)';
+      });
+
+      uploadZone.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        if(!fileInput.files || fileInput.files.length === 0) {
+          uploadZone.style.borderColor = 'var(--border-color)';
+          uploadZone.style.backgroundColor = 'white';
+        }
+      });
+
+      uploadZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        if (e.dataTransfer.files.length > 0) {
+          fileInput.files = e.dataTransfer.files;
+          handleFileSelect({ target: fileInput });
+        }
+      });
+    }
+
+    // Global Validation Logic for PERFORM ENRICHMENT button
+    const nameInput = document.getElementById('name-input');
+    const descInput = document.getElementById('desc-input');
+    const textInput = document.getElementById('text-input');
+    const btnNext = document.getElementById('btn-next');
+
+    function checkFormValidity() {
+      if(!nameInput || !descInput || !btnNext) return;
+      
+      const isNameFilled = nameInput.value.trim().length > 0;
+      const isDescFilled = descInput.value.trim().length > 0;
+      
+      const isUrlFilled = urlInput && urlInput.value.trim().length > 0;
+      const isFileUploaded = fileInput && fileInput.files && fileInput.files.length > 0;
+      const isTextFilled = textInput && textInput.value.trim().length > 0;
+      
+      const hasSource = isUrlFilled || isFileUploaded || isTextFilled;
+      
+      if(isNameFilled && isDescFilled && hasSource) {
+        btnNext.disabled = false;
+      } else {
+        btnNext.disabled = true;
+      }
+    }
+
+    // Attach event listeners to all inputs
+    if(nameInput) nameInput.addEventListener('input', checkFormValidity);
+    if(descInput) descInput.addEventListener('input', checkFormValidity);
+    if(urlInput) urlInput.addEventListener('input', checkFormValidity);
+    if(textInput) textInput.addEventListener('input', checkFormValidity);
+
+    // Handle Next button click with an alert popup
+    if(btnNext) {
+      btnNext.addEventListener('click', function() {
+        alert('Navigating to enrichment and validate step 2...');
+      });
+    }
+  </script>
+</body>
+</html>
